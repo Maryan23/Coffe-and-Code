@@ -1,10 +1,9 @@
 from . import main
 from flask import render_template,abort,redirect,url_for
 from flask_login import login_required,current_user
-from ..models import User
+from ..models import User,Blog
 from .. import db
-from .forms import UpdateProfile
-
+from .forms import UpdateProfile, BlogForm
 #Views
 @main.route('/')
 def index():
@@ -12,9 +11,8 @@ def index():
     View root page function
     '''
     title = 'Coffee and Code'
-    user = User.query.all()
 
-    return render_template ('index.html',title=title,user=user)
+    return render_template ('index.html',title=title)
 
 @main.route('/user/<name>')
 def profile(name):
@@ -43,3 +41,20 @@ def update_profile(name):
         return redirect(url_for('.profile',name = user.username))
 
     return render_template('profile/update.html',form =form)
+
+@main.route('/create_new',methods = ['GET','POST'])
+@login_required
+def new_blog():
+    form = BlogForm()
+
+    if form.validate_on_submit():
+        category = form.category.data
+        context = form.context.data
+        new_blog = Blog(category=category,context=context)
+        #saving new blog
+        new_blog.save_blog()
+        return redirect(url_for('main.index'))
+    else:
+        all_blogs = Blog.query.order_by(Blog.posted).all
+
+    return render_template('blog.html',blog_form = form,blogs=all_blogs)

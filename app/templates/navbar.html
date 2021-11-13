@@ -6,7 +6,7 @@
         {% if current_user.is_authenticated %}
         <li><button class="btn btn-warning"><a href="{{url_for('main.profile',name=current_user.name)}}">Profile</a></button></li>
         <li><button class="btn btn-warning"><a href="{{url_for('auth.logout')}}">Sign Out</a></button></li>
-        <li><button class="btn btn-warning"><a href="">New Blog</a></button></li>
+        <li><button class="btn btn-warning"><a href="{{url_for('main.new_blog')}}">New Blog</a></button></li>
         {% else %}
         <li><button class="btn btn-warning"><a href="{{url_for('auth.login')}}">Sign In</a></button></li>
         {%endif%}
@@ -14,12 +14,8 @@
       <img class="card-header" src ="static/images/Screenshot from 2021-11-12 14-26-35.png" alt ="coffee and code" height ="200" width="400">
     <div class="container-fluid">
         <form class="d-flex">
-            {% if current_user.is_authenticated %}
             <input class="form-control me-2" type="search" placeholder="Enter your email to subscribe to our newsletter" aria-label="Search"><br>
             <button class="btn btn-warning" type="submit">Subscribe</button>
-            {% else %}
-            <p class="text-center">WELCOME TO COFFEE AND CODE BLOGPOST :)</p>
-            {% endif %}
         </form>
     </div>
 </div>

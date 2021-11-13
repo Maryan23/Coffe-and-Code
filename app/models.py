@@ -59,7 +59,7 @@ class Blog(db.Model):
     posted = db.Column(db.DateTime,default=datetime.utcnow)
     upvote = db.relationship('Upvote',backref='post',lazy='dynamic')
     downvote = db.relationship('Downvote',backref='post',lazy='dynamic')
-    comment = db.relationship('Comment',backref='post',lazy='dynamic')
+    # comment = db.relationship('Comment',backref='post',lazy='dynamic')
 
     def save_blog(self):
         db.session.add(self)
