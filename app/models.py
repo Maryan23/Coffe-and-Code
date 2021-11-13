@@ -9,12 +9,13 @@ from werkzeug.security import generate_password_hash,check_password_hash
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+
 class User(UserMixin,db.Model):
 
     __tablename__ = 'users'
 
     id = db.Column(db.Integer,primary_key = True)
-    email = db.Column(db.String(100),unique = True)
+    email = db.Column(db.String(100),nullable = False,unique = True)
     username = db.Column(db.String(100))
     bio = db.Column(db.String(255))
     avatar = db.Column(db.String())
@@ -47,3 +48,59 @@ class Role(db.Model):
 
     def __repr__(self):
         return f'User {self.name}'
+
+class Blog(db.Model):
+
+    __tablename__ = 'blogs'
+
+    id = db.Column(db.Integer,primary_key=True)
+    category = db.Column(db.String)
+    context = db.Column(db.String)
+    posted = db.Column(db.DateTime,default=datetime.utcnow)
+    upvote = db.relationship('Upvote',backref='post',lazy='dynamic')
+    downvote = db.relationship('Downvote',backref='post',lazy='dynamic')
+    comment = db.relationship('Comment',backref='post',lazy='dynamic')
+
+    def save_blog(self):
+        db.session.add(self)
+        db.session.commit()
+
+    def _repr_(self):
+        return f'Blog{self.category}'
+
+class Upvote(db.Model):
+    _tablename_ = 'upvotes'
+
+    id = db.Column(db.Integer, primary_key=True)
+    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_upvotes(cls, id):
+        upvote = Upvote.query.filter_by(blog_id=id).all()
+        return upvote
+
+    def _repr_(self):
+        return f'{self.blog_id}'
+
+
+class Downvote(db.Model):
+    _tablename_ = 'downvotes'
+
+    id = db.Column(db.Integer, primary_key=True)
+    blog_id = db.Column(db.Integer, db.ForeignKey('blogs.id'))
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_downvotes(cls, id):
+        downvote = Downvote.query.filter_by(blog_id=id).all()
+        return downvote
+
+    def _repr_(self):
+        return f'{self.blog_id}'
