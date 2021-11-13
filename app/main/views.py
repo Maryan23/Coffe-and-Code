@@ -12,8 +12,9 @@ def index():
     View root page function
     '''
     title = 'Coffee and Code'
+    user = User.query.all()
 
-    return render_template ('index.html',title=title)
+    return render_template ('index.html',title=title,user=user)
 
 @main.route('/user/<name>')
 def profile(name):

@@ -11,11 +11,6 @@
         <li><button class="btn btn-warning"><a href="{{url_for('auth.login')}}">Sign In</a></button></li>
         {%endif%}
     </ul>
-    {% if current_user.is_authenticated %}
-    <h1>Welcome {{user.username}} </h1>
-    {% else %}
-    <h1></h1>
-    {% endif %}
       <img class="card-header" src ="static/images/Screenshot from 2021-11-12 14-26-35.png" alt ="coffee and code" height ="200" width="400">
     <div class="container-fluid">
         <form class="d-flex">
