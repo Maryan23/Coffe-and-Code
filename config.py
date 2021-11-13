@@ -4,7 +4,10 @@ class Config:
     '''
     General configuration parent class
     '''
-    pass  
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:4543@localhost/coffeeandcode'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    SECRET_KEY = 'Mwiks01'
+
     DEBUG = True
 
 class ProdConfig(Config):
