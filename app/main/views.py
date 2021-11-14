@@ -112,11 +112,17 @@ def dislike(id):
 @main.route('/delete_blog/<int:id>',methods = ['GET','POST'])
 @login_required
 def delete(id):
-    blog = Blog.query.get(id)
-    if blog is None:
-        abort(404)
+    blog= Blog.query.get(id)
+    db.session.delete(blog)
+    db.session.commit()
+    return redirect(url_for('main.index'))
 
-    delete = Delete.query.filter_by(blog_id=id).first()
+@main.route("/delete_comment/<int:id>")
+@login_required
+def delete_comment(id):
+    blog = Blog.query.filter_by(id = id).first()
+    comment = Comment.query.filter_by(id = comment_id).first()
+    db.session.delete(comment)
+    db.session.commit()
+    return redirect(url_for('main.index',id = blog.id))
 
-    while True:
-        remove 
