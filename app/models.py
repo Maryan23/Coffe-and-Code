@@ -9,6 +9,14 @@ from werkzeug.security import generate_password_hash,check_password_hash
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+class Quote:
+  """
+  Class that returns quotes requested from API
+  """
+  def __init__(self, author, quote):
+    self.author = author
+    self.quote = quote
+
 
 class User(UserMixin,db.Model):
 

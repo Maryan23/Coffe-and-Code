@@ -5,6 +5,7 @@ from ..models import User,Blog,Comment,Upvote,Downvote,Delete
 from .. import db
 from .forms import UpdateProfile, BlogForm,CommentForm
 from flask_mail import Message 
+from ..requests import get_quote
 #Views
 @main.route('/')
 def index():
@@ -13,8 +14,9 @@ def index():
     '''
     title = 'Coffee and Code'
     blogs = Blog.query.all()
+    quotes = get_quote()
 
-    return render_template ('index.html',title=title,blogs=blogs)
+    return render_template ('index.html',title=title,blogs=blogs,quotes=quotes)
 
 @main.route('/user/<name>')
 def profile(name):

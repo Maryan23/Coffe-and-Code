@@ -18,6 +18,7 @@
     </header>
     <body>
         {% block content %}
+        <blockquote> "{{quotes.quote}}" </blockquote>
         <div class="container-fluid">
             <h2 class="text-center"><u>Blogs from Me to You</u></h2>
                 <div class = "col-md-12">
@@ -34,10 +35,6 @@
                     </div>
                 </div>
                 {% endfor %}
+        {%endblock%}
         </div>
-        
-       
-        </body>
-    
-    {%endblock%}
     </body>
