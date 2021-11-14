@@ -60,6 +60,7 @@ class Blog(db.Model):
     upvote = db.relationship('Upvote',backref='post',lazy='dynamic')
     downvote = db.relationship('Downvote',backref='post',lazy='dynamic')
     comment = db.relationship('Comment',backref='post',lazy='dynamic')
+    delete = db.relationship('Delete',backref = 'post',lazy='dynamic')
  
     def save_blog(self):
         db.session.add(self)
@@ -120,6 +121,23 @@ class Downvote(db.Model):
     def get_downvotes(cls, id):
         downvote = Downvote.query.filter_by(blog_id=id).all()
         return downvote
+
+    def _repr_(self):
+        return f'{self.blog_id}'
+
+class Delete(db.Model):
+    __tablename__ = 'deletes'
+    id = db.Column(db.Integer,primary_key = True)
+    blog_id = db.Column(db.Integer,db.ForeignKey('blogs.id'))
+
+    def save(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_deletes(cls,id):
+        delete = Delete.query.filter_by(blog_id=id).all()
+        return delete
 
     def _repr_(self):
         return f'{self.blog_id}'

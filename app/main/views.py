@@ -1,7 +1,7 @@
 from . import main
 from flask import render_template,abort,redirect,url_for
 from flask_login import login_required,current_user
-from ..models import User,Blog,Comment,Upvote,Downvote
+from ..models import User,Blog,Comment,Upvote,Downvote,Delete
 from .. import db
 from .forms import UpdateProfile, BlogForm,CommentForm
 from flask_mail import Message 
@@ -108,4 +108,15 @@ def dislike(id):
     db.session.add(new_dislike)
     db.session.commit()
     return redirect(url_for('main.index'))
+    
+@main.route('/delete_blog/<int:id>',methods = ['GET','POST'])
+@login_required
+def delete(id):
+    blog = Blog.query.get(id)
+    if blog is None:
+        abort(404)
 
+    delete = Delete.query.filter_by(blog_id=id).first()
+
+    while True:
+        remove 
