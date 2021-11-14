@@ -120,9 +120,8 @@ def delete(id):
 @main.route("/delete_comment/<int:id>")
 @login_required
 def delete_comment(id):
-    blog = Blog.query.filter_by(id = id).first()
-    comment = Comment.query.filter_by(id = comment_id).first()
+    comment = Comment.query.get(id)
     db.session.delete(comment)
     db.session.commit()
-    return redirect(url_for('main.index',id = blog.id))
+    return redirect(url_for('main.index'))
 

@@ -10,6 +10,7 @@
         {% for comment in all_comments %}
         <div class = "col-md-12">
             <p>{{ comment.comment}}</p>
+            <a class =" btn btn-danger" href="{{url_for('main.delete_comment',id = comment.id)}}">Delete</a>
         </div>
         {% endfor %}
     </div>
