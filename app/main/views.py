@@ -1,8 +1,8 @@
 from . import main
-from flask import render_template,abort,redirect,url_for
+from flask import render_template,abort,redirect,url_for,request
 from flask_login import login_required,current_user
 from ..models import User,Blog,Comment,Upvote,Downvote,Delete
-from .. import db
+from .. import db,photos
 from .forms import UpdateProfile, BlogForm,CommentForm
 from flask_mail import Message 
 from ..requests import get_quote
@@ -14,14 +14,14 @@ def index():
     '''
     title = 'Coffee and Code'
     blogs = Blog.query.all()
+    user = User.query.all()
     quotes = get_quote()
 
-    return render_template ('index.html',title=title,blogs=blogs,quotes=quotes)
+    return render_template ('index.html',title=title,blogs=blogs,quotes=quotes,user=user)
 
 @main.route('/user/<name>')
 def profile(name):
     user = User.query.filter_by(username = name).first()
-    user_id = current_user._get_current_object().id
     
     if user is None:
         abort(404)
@@ -46,6 +46,17 @@ def update_profile(name):
         return redirect(url_for('.profile',name = user.username))
 
     return render_template('profile/update.html',form =form)
+
+@main.route('/user/<name>/update/pic',methods= ['POST'])
+@login_required
+def update_pic(name):
+    user = User.query.filter_by(username = name).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.avatar = path
+        db.session.commit()
+    return redirect(url_for('main.profile',name = name))
 
 @main.route('/create_new',methods = ['GET','POST'])
 @login_required

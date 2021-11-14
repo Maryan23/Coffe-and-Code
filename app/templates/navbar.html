@@ -4,7 +4,7 @@
         <li class="nav-item">
         <button class="btn btn-warning"><a class="nav-link active" aria-current="true" href="/">Home</a></button>
         {% if current_user.is_authenticated %}
-        <li><button class="btn btn-warning"><a href="{{url_for('main.profile',name=current_user.name)}}">Profile</a></button></li>
+        <li><button class="btn btn-warning"><a href="{{url_for('main.profile',name=current_user.username)}}">Profile</a></button></li>
         <li><button class="btn btn-warning"><a href="{{url_for('auth.logout')}}">Sign Out</a></button></li>
         <li><button class="btn btn-warning"><a href="{{url_for('main.new_blog')}}">New Blog</a></button></li>
         {% else %}

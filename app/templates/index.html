@@ -19,8 +19,9 @@
     <body>
         {% block content %}
         <div class="card">
-            <div class="card-header">
-              Quote
+            <div class="card-header"><strong>
+                Quote
+            </strong>
             </div>
             <div class="card-body">
               <blockquote class="blockquote mb-0">
@@ -31,7 +32,7 @@
         </div>
         <div class="container-fluid">
             <h2 class="text-center"><u>Blogs from Me to You</u></h2>
-                <div class = "col-md-12">
+                <div class = "col-md-6">
                 {% for blog in blogs %}
                     <div class="card">
                         <div class="card-body">

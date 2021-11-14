@@ -7,6 +7,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:4543@localhost/coffeeandcode'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = 'Mwiks01'
+    UPLOADED_PHOTOS_DEST ='app/static/photos'
 
     DEBUG = True
 
@@ -16,9 +17,8 @@ class Config:
     MAIL_USE_TLS = True
     MAIL_USE_SSL = False
     # MAIL_DEBUG = True
-    MAIL_USERNAME = 'mwikali119@gmail.com'
-    MAIL_PASSWORD = None
-    MAIL_DEFAULT_SENDER = 'mwikali119@gail.com'
+    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
+    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
     MAIL_MAX_EMAILS = None
     # MAIL_SUPPRESS_SEND = False
     MAIL_ASCII_ATTACHMENTS = False
