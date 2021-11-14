@@ -10,6 +10,20 @@ class Config:
 
     DEBUG = True
 
+    #Email configurations
+    MAIL_SERVER = 'smtp.googlemail.com'
+    MAIL_PORT = 587
+    MAIL_USE_TLS = True
+    MAIL_USE_SSL = False
+    # MAIL_DEBUG = True
+    MAIL_USERNAME = 'mwikali119@gmail.com'
+    MAIL_PASSWORD = None
+    MAIL_DEFAULT_SENDER = 'mwikali119@gail.com'
+    MAIL_MAX_EMAILS = None
+    # MAIL_SUPPRESS_SEND = False
+    MAIL_ASCII_ATTACHMENTS = False
+
+
 class ProdConfig(Config):
     '''
     Production configuration child class
