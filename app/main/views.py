@@ -1,7 +1,7 @@
 from . import main
 from flask import render_template,abort,redirect,url_for
 from flask_login import login_required,current_user
-from ..models import User,Blog,Comment
+from ..models import User,Blog,Comment,Upvote,Downvote
 from .. import db
 from .forms import UpdateProfile, BlogForm,CommentForm
 from flask_mail import Message 
@@ -71,10 +71,41 @@ def comment(blog_id):
     if form.validate_on_submit():
         comment = form.comment.data 
         blog_id = blog_id
-        user_id = current_user._get_current_object().id
-        new_comment = Comment(comment = comment,user_id = user_id,blog_id = blog_id)
+        new_comment = Comment(blog_id = blog_id)
         db.session.add(new_comment)
         db.session.commit()
         return redirect(url_for('.comment', blog_id = blog_id))
     return render_template('comment.html',comment_form =form, blog = blog,all_comments=all_comments)
+
+@main.route('/like/<int:id>', methods=['GET', 'POST'])
+def like(id):
+    blog = Blog.query.get(id)
+    if blog is None:
+        abort(404)
+    like = Upvote.query.filter_by(blog_id=id).first()
+    if like is not None:
+        db.session.add(like)
+        db.session.commit()
+    new_like = Upvote(blog_id=id)
+    db.session.add(new_like)
+    db.session.commit()
+    return redirect(url_for('main.index'))
+
+
+@main.route('/dislike/<int:id>', methods=['GET', 'POST'])
+def dislike(id):
+    blog = Blog.query.get(id)
+    if blog is None:
+        abort(404)
+    
+    dislike = Downvote.query.filter_by(blog_id=id).first()
+    
+    if dislike is not None:   
+        db.session.add(dislike)
+        db.session.commit()
+
+    new_dislike = Downvote(blog_id=id)
+    db.session.add(new_dislike)
+    db.session.commit()
+    return redirect(url_for('main.index'))
 
