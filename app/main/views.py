@@ -71,7 +71,7 @@ def comment(blog_id):
     if form.validate_on_submit():
         comment = form.comment.data 
         blog_id = blog_id
-        new_comment = Comment(blog_id = blog_id)
+        new_comment = Comment(comment=comment,blog_id = blog_id)
         db.session.add(new_comment)
         db.session.commit()
         return redirect(url_for('.comment', blog_id = blog_id))

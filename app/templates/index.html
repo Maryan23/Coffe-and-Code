@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <h3 class = "card-title">Category : {{ blog.category }}</h3>
                             <h4 class = "card-text"> {{ blog.context }}</h4><br>
-                            <a class =" btn btn-warning" href="{{ url_for('main.comment', blog_id = blog.id)}}">Comment</a>
+                            <a class =" btn btn-warning" href="{{ url_for('main.comment', blog_id = blog.id)}}">Comments:{{blog.comment.count()}}</a>
                             <a class =" btn btn-warning" href="{{url_for('main.like',id = blog.id)}}">Upvotes:{{blog.upvote.count()}}</a>
                         <a class =" btn btn-danger" href="{{url_for('main.dislike',id = blog.id)}}">Downvotes:{{blog.downvote.count()}}</a>
                         </div>
