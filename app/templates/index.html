@@ -18,7 +18,17 @@
     </header>
     <body>
         {% block content %}
-        <blockquote> "{{quotes.quote}}" </blockquote>
+        <div class="card">
+            <div class="card-header">
+              Quote
+            </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p>{{ quotes.quote }}</p>
+                <footer class="blockquote-footer">{{ quotes.author }}</cite></footer>
+              </blockquote><hr>
+            </div>
+        </div>
         <div class="container-fluid">
             <h2 class="text-center"><u>Blogs from Me to You</u></h2>
                 <div class = "col-md-12">
