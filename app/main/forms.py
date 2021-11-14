@@ -11,3 +11,8 @@ class BlogForm(FlaskForm):
     category = StringField('Blog Category') 
     context = TextAreaField('Blog Content')
     submit = SubmitField('Submit')
+
+class CommentForm(FlaskForm):
+    title = StringField('Comment title')
+    comment = TextAreaField('Leave a comment')
+    submit = SubmitField('Submit')
