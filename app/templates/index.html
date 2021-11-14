@@ -20,18 +20,17 @@
         {% block content %}
         <div class="container-fluid">
             <h2 class="text-center"><u>Blogs from Me to You</u></h2>
-            <div class="row">
                 <div class = "col-md-12">
                 {% for blog in blogs %}
                     <div class="card">
                         <div class="card-body">
                             <h3 class = "card-title">Category : {{ blog.category }}</h3>
-                            <p class = "card-text"> {{ blog.context }}</h4>
+                            <h4 class = "card-text"> {{ blog.context }}</h4><br>
+                            <a class =" btn btn-warning" href="{{ url_for('main.comment', blog_id = blog.id)}}">Comment</a>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
-            </div>
         </div>
         
        
