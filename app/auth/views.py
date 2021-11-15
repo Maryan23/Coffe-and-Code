@@ -5,6 +5,7 @@ from werkzeug.security import generate_password_hash,check_password_hash
 from .. import db 
 from flask_login import login_user,login_required,logout_user
 from .forms import SignupForm,LoginForm
+from ..email import mail_message
 
 @auth.route('/signup', methods = ["GET","POST"])
 def signup():
@@ -13,7 +14,11 @@ def signup():
     user = User(email = form.email.data, username = form.name.data, password = form.password.data)
     db.session.add(user)
     db.session.commit()
+
+    mail_message("Welcome to Coffee and Code","email/welcome_user",user.email,user=user)
+
     return redirect(url_for('auth.login'))
+    title = "New account"
   return render_template('auth/signup.html', signup_form = form)
 
 

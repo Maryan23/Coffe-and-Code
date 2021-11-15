@@ -4,7 +4,6 @@ from flask_login import login_required,current_user
 from ..models import User,Blog,Comment,Upvote,Downvote,Delete
 from .. import db,photos
 from .forms import UpdateProfile, BlogForm,CommentForm
-from flask_mail import Message 
 from ..requests import get_quote
 #Views
 @main.route('/')
@@ -72,7 +71,7 @@ def new_blog():
         db.session.commit()
         return redirect(url_for('main.index'))
     else:
-        all_blogs = Blog.query.order_by(Blog.posted).all
+        all_blogs = Blog.query.order_by(Blog.posted)
 
     return render_template('blog.html',blog_form = form,blogs=all_blogs)
 
