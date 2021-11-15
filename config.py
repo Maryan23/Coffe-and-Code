@@ -29,8 +29,9 @@ class ProdConfig(Config):
     '''
     Production configuration child class
     '''
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
-    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL","")
+    # if SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
+    #     SQLALCHEMY_DATABASE_URI =SQLALCHEMY_DATABASE_URI.replace("postgres://","postgresql://",1)
 
 class DevConfig(Config):
     '''
@@ -41,7 +42,7 @@ class DevConfig(Config):
 
 class TestConfig(Config):
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
-    
+
     DEBUG = True
 config_options = {
    "production" :ProdConfig,
