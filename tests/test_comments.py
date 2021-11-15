@@ -1,8 +1,9 @@
 from app.models import Comment, User
+from app import db
 
 def setUp(self):
-  self.user_sling = User(password = '5443', email = 'mwikali119@gmail.com')
-  self.new_comment = Comment(id=1,user_id=10,comment=' pitch', pitch_id = 12 )
+  self.user_Mwikali = User(password = '5443', email = 'mwikali119@gmail.com')
+  self.new_comment = Comment(id=1,comment='Nice blog', blog_id = 7)
 
 def tearDown(self):
   Comment.query.delete()
@@ -10,9 +11,8 @@ def tearDown(self):
         
 def test_check_instance_variables(self):
   self.assertEquals(self.new_comment.id,1)
-  self.assertEquals(self.new_comment.user_id,10)
-  self.assertEquals(self.new_comment.comment,'pitch')
-  self.assertEquals(self.new_comment.pitch_id,12)
+  self.assertEquals(self.new_comment.comment,'Nice blog')
+  self.assertEquals(self.new_comment.blog_id,7)
         
 def test_save_comment(self):
   self.new_comment.save_comment()
