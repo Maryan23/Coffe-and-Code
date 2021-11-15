@@ -1,8 +1,8 @@
-"""First Migration
+"""First migration
 
-Revision ID: 6f7fd9fa7db1
+Revision ID: 2d64c972110a
 Revises: 
-Create Date: 2021-11-13 22:48:19.848628
+Create Date: 2021-11-15 13:50:07.522134
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '6f7fd9fa7db1'
+revision = '2d64c972110a'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -28,6 +28,19 @@ def upgrade():
     op.create_table('roles',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=255), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('comments',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('comment', sa.Text(), nullable=False),
+    sa.Column('blog_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['blog_id'], ['blogs.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('deletes',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('blog_id', sa.Integer(), nullable=True),
+    sa.ForeignKeyConstraint(['blog_id'], ['blogs.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('downvote',
@@ -63,6 +76,8 @@ def downgrade():
     op.drop_table('users')
     op.drop_table('upvote')
     op.drop_table('downvote')
+    op.drop_table('deletes')
+    op.drop_table('comments')
     op.drop_table('roles')
     op.drop_table('blogs')
     # ### end Alembic commands ###

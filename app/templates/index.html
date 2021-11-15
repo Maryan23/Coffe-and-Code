@@ -39,7 +39,7 @@
                             <h3 class = "card-title">Category : {{ blog.category }}</h3>
                             <h4 class = "card-text"> {{ blog.context }}</h4>
                             <p class = "card-text">Posted On:{{ blog.posted.strftime('%Y-%m-%d') }}</p>
-                            <a class =" btn btn-warning" href="{{ url_for('main.comment', blog_id = blog.id)}}">Comments:{{blog.comment.count()}}</a>
+                            <a class =" btn btn-warning" href="{{ url_for('main.comment', blog_id = blogs.id)}}">Comments:{{blog.comment.count()}}</a>
                             <a class =" btn btn-warning" href="{{url_for('main.like',id = blog.id)}}">Likes:{{blog.upvote.count()}}</a>
                             <a class =" btn btn-danger" href="{{url_for('main.dislike',id = blog.id)}}">Dislikes:{{blog.downvote.count()}}</a>
                             <a class =" btn btn-danger" href="{{url_for('main.delete',id = blog.id)}}">Delete</a>
