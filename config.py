@@ -5,7 +5,7 @@ class Config:
     General configuration parent class
     '''
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SECRET_KEY = 'Mwiks01'
+    SECRET_KEY = os.environ.get('SECRET_KEY')
     UPLOADED_PHOTOS_DEST ='app/static/photos'
 
     
@@ -28,18 +28,18 @@ class ProdConfig(Config):
     '''
     Production configuration child class
     '''
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:4543@localhost/coffeeandcode'
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL")
     DEBUG = True
 
 class DevConfig(Config):
     '''
     Development configuration child class
     '''
-    pass
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI")
     DEBUG = True
 
 class TestConfig(Config):
-    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://postgres:4543@localhost/coffeecode_test'
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI")
 
 config_options = {
    "production" :ProdConfig,
