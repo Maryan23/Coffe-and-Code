@@ -1,0 +1,5 @@
+Hello {{user.username}}
+
+Welcome to Coffee and Code!
+I saw you just signed up for our application and we are glad to have you on board.
+We hope you'll enjoy blogs from our writers.
